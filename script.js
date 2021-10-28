@@ -1,53 +1,48 @@
 'use strict';
 
-///// Task 3  Создать форму в HTML с полем ввода, несколькими checkbox и кнопкой отправки. На submit формы вывести значения поля ввода и имена всех отмеченных полей checkbox.
 
-let form = document.forms['form'];
-let tag = form.elements;
-
- form.addEventListener('submit', function (event) {
-     event.preventDefault();
-     console.log(tag.name.value);
-     for(let i = 0; i < tag.length; i++) {
-         if(tag[i].type == 'checkbox' && tag[i].checked) {
-             console.log(tag[i].name);
-         }
-     }
- });
-
-
-//// Task 4 Создать форму в HTML с полем ввода и кнопкой отправки. На submit формы, если поля ввода пустое, делать фокус на поле ввода.
+//////Object
  
-let form1 = document.forms['form1'];
-let tag1 = form1.elements;
-
- form1.addEventListener('submit', function (event) {
-     if(tag1.name.value == '') {
-      tag1.name.focus();
-     }
- });
+///////// Task 1  Создать объект car с набором свойств по желанию. Вывести в цикле все ключи и значения объекта.
 
 
- ///// Task 5 Создать форму в HTML с полями для ввода имени, фамилии, телефона и сообщения. Для поля телефона задать максимальное количество символов 13, сообщение может быть большим. При submit формы создавать объект со всеми значениями формы и выводить его.
+let car = {
+        model: "Renault",
+        color: "silver",
+        engine: "petrol" 
+    };
 
-let form2 = document.forms['form2'];
-let tag2 = form2.elements;
+    for (let key in car) {
+        if(car.hasOwnProperty(key)){
+          console.log(`${key} : ${car[key]}`)
+        }
+      }
 
-form2.addEventListener('submit', function (event) {
-    event.preventDefault();
+///////// Task 2  Создать объект user с свойствами name, email, phone, id. Скопировать этот объект со всеми свойствами в новую переменную newUser.
+      
+let user = {
+    name: "Ivan",
+    email: "Ivan@gmail.com",
+    phone: "+344555000",
+    id: 123 
+};
 
-    let name = tag2.name.value;
-    let surname = tag2.surname.value;
-    let phone = tag2.phone.value;
-    let message = tag2.message.value;
+let newUser = user;
 
-    const obj = {
-        имя: name,
-        фамилия: surname,
-        телефон: phone,
-        сообщение: message,
-        };
+console.log(newUser);
 
-console.log(obj);
 
-});
+///////// Task 3 Создать объект circle со свойствами: radius, color. Также создать в объекте метод   calculateCircumference(), при вызове которого, в консоль выводится длина окружности (2 * число пи * радиус).
+
+
+let numberPi = 3.14;
+
+let circle = {
+    radius: 30,
+    color: "blue",
+    calculateCircumference() {
+        alert(2 * `${numberPi}` * circle.radius);
+    }
+};
+
+circle.calculateCircumference();
