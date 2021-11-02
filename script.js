@@ -1,48 +1,81 @@
 'use strict';
 
 
-//////Object
- 
-///////// Task 1  Создать объект car с набором свойств по желанию. Вывести в цикле все ключи и значения объекта.
 
+/// Task 6 Напишите функцию isEmpty(obj), которая возвращает true, если у объекта нет свойств, иначе false. 
 
-let car = {
-        model: "Renault",
-        color: "silver",
-        engine: "petrol" 
-    };
-
-    for (let key in car) {
-        if(car.hasOwnProperty(key)){
-          console.log(`${key} : ${car[key]}`)
-        }
-      }
-
-///////// Task 2  Создать объект user с свойствами name, email, phone, id. Скопировать этот объект со всеми свойствами в новую переменную newUser.
-      
-let user = {
-    name: "Ivan",
-    email: "Ivan@gmail.com",
-    phone: "+344555000",
-    id: 123 
+let obj = {
+    name: 'jhon',
+    surname: 'jhonson'
 };
 
-let newUser = user;
-
-console.log(newUser);
-
-
-///////// Task 3 Создать объект circle со свойствами: radius, color. Также создать в объекте метод   calculateCircumference(), при вызове которого, в консоль выводится длина окружности (2 * число пи * радиус).
-
-
-let numberPi = 3.14;
-
-let circle = {
-    radius: 30,
-    color: "blue",
-    calculateCircumference() {
-        alert(2 * `${numberPi}` * circle.radius);
+function isEmpty(obj) {
+    for (let key in obj) {
+      return false;
     }
+    return true;
+  }
+
+ console.log(isEmpty(obj));
+
+ //// Task 2 Существует ul список на странице. Получить все текстовые значения элементов списка. Создать из них массив и к каждому элементу массива добавить его порядковый номер. Вывести полученный массив
+
+let listItem = document.getElementsByClassName('list_item');
+let arr = [];
+
+for (let i = 0; i < listItem.length; i++){
+arr.push(listItem[i].innerHTML);
+arr[i] = (i + 1) + '.' + arr[i];
+console.log(arr[i]);
+}
+
+
+//// Task 3 Есть объект prices с произвольным количеством свойств, содержащих цены продуктов.Напишите функцию sumPrices(prices), которая возвращает сумму всех цен с помощью метода Object.values
+
+let prices = {
+    pen: 3,
+    pensil: 2,
+    marker: 4
 };
 
-circle.calculateCircumference();
+function sumPrices(prices) {
+let sum = 0;
+for (let price of Object.values(prices)) {
+    sum += price;
+}
+return sum;
+}
+
+alert(sumPrices(prices));
+
+
+
+
+//// Task 2  Напишите функцию, которая выводит через 5 секунд на экран сообщение “прошло 5 секунд”
+
+let showMessage = function (n) {
+    let timer = setTimeout(function (){
+        alert('Прошло 5 секунд...');
+    }, n);
+    
+};
+showMessage(5000);
+
+
+////Task 3 Напишите функцию printNumbers(from, to), которая выводит число каждую секунду, начиная от from и заканчивая to.
+
+
+function printNumbers(from, to) {
+    let number = from;
+  
+    let timer = setInterval(function() {
+      console.log(number);
+      if (number == to) {
+        clearInterval(timer);
+      }
+      number++;
+    }, 1000);
+  }
+  
+  printNumbers(0, 12);
+
