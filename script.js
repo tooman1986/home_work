@@ -1,81 +1,39 @@
 'use strict';
 
 
+/////// Task 1  Преобразуйте user в JSON, затем прочитайте этот JSON в другую переменную.
 
-/// Task 6 Напишите функцию isEmpty(obj), которая возвращает true, если у объекта нет свойств, иначе false. 
-
-let obj = {
-    name: 'jhon',
-    surname: 'jhonson'
+let user = {
+  name: "User photo",
+  size: "200 x 200"
 };
 
-function isEmpty(obj) {
-    for (let key in obj) {
-      return false;
+let user2 = JSON.parse(JSON.stringify(user));
+
+
+/////// Task 2 Создайте асинхронную функцию getUsers(names), которая получает на вход массив логинов пользователей GitHub, запрашивает у GitHub информацию о них и возвращает массив объектов-пользователей.Информация о пользователе GitHub с логином USERNAME доступна по ссылке: https://api.github.com/users/USERNAME.
+
+
+async function getUsers(names) {
+    let jobs = [];
+  
+    for(let name of names) {
+      let job = fetch(`https://api.github.com/users/${name}`).then(
+        success => {
+          if (success.status != 200) {
+            return null;
+          } else {
+            return success.json();
+          }
+        },
+        fail => {
+          return null;
+        }
+      );
+      jobs.push(job);
     }
-    return true;
-  }
-
- console.log(isEmpty(obj));
-
- //// Task 2 Существует ul список на странице. Получить все текстовые значения элементов списка. Создать из них массив и к каждому элементу массива добавить его порядковый номер. Вывести полученный массив
-
-let listItem = document.getElementsByClassName('list_item');
-let arr = [];
-
-for (let i = 0; i < listItem.length; i++){
-arr.push(listItem[i].innerHTML);
-arr[i] = (i + 1) + '.' + arr[i];
-console.log(arr[i]);
-}
-
-
-//// Task 3 Есть объект prices с произвольным количеством свойств, содержащих цены продуктов.Напишите функцию sumPrices(prices), которая возвращает сумму всех цен с помощью метода Object.values
-
-let prices = {
-    pen: 3,
-    pensil: 2,
-    marker: 4
-};
-
-function sumPrices(prices) {
-let sum = 0;
-for (let price of Object.values(prices)) {
-    sum += price;
-}
-return sum;
-}
-
-alert(sumPrices(prices));
-
-
-
-
-//// Task 2  Напишите функцию, которая выводит через 5 секунд на экран сообщение “прошло 5 секунд”
-
-let showMessage = function (n) {
-    let timer = setTimeout(function (){
-        alert('Прошло 5 секунд...');
-    }, n);
-    
-};
-showMessage(5000);
-
-
-////Task 3 Напишите функцию printNumbers(from, to), которая выводит число каждую секунду, начиная от from и заканчивая to.
-
-
-function printNumbers(from, to) {
-    let number = from;
   
-    let timer = setInterval(function() {
-      console.log(number);
-      if (number == to) {
-        clearInterval(timer);
-      }
-      number++;
-    }, 1000);
-  }
+    let result = await Promise.all(jobs);
   
-  printNumbers(0, 12);
-
+    return result;
+  }
